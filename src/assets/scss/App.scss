@@ -1,0 +1,187 @@
+@import "./theme.scss";
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+.App {
+  header{
+    .navbar{
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      .navbar-brand{
+        width: 125px;
+      }
+      .user-info{
+        .user-acc-ico{
+          width: 32px;
+          height: 32px;
+          text-align: center;
+          background: #3ab906;
+          color: #FFFFFF;
+          -webkit-border-radius: 100%;
+          -moz-border-radius: 100%;
+          -ms-border-radius: 100%;
+          -o-border-radius: 100%;
+          border-radius: 100%;
+          padding: 6px;
+          line-height: 14px;
+          cursor: pointer;
+        }
+        .user-details{
+          padding: 0.25rem 1.5rem;
+          .username{
+            display: block;
+            font-weight: 600;
+          }
+          .user-email{
+            font-size: 14px;
+          }
+        }
+        .dropdown-menu{
+          min-width: 250px;
+          top: 47px;
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+        }
+      }
+      
+    }
+  }
+  .side-nav{
+    max-width: $sidebar_nav;
+    display: inline-block;
+    background-color: #fcfcfc;
+    width: 100%;
+    padding: 20px;
+    vertical-align: top;
+    min-height: calc(100vh - #{$header_height + $footer_height});
+    float: left;
+    .nav-item {
+      .nav-link{
+        display: block;
+        color: #6e6e6e;
+        padding: 10px 20px 10px 60px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 22px;
+        font-size: 14px;
+        position: relative;
+        &.active{
+          background-color: #f6f6f6;
+          color: #393939;
+        }
+        &:hover{
+          background-color: #f6f6f6;
+          color: #393939;
+        }
+        .icon{
+          height: 22px;
+          width: 24px;
+          background-image: url('../images/sprite-sidenav.png');
+          background-repeat: no-repeat;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+          left: 15px;
+          &.home{
+            
+          }
+          &.acc-bill{
+            background-position: -3px -1506px;
+          }
+          &.acc {
+            background-position: left -63px;
+          }
+      }
+      }
+    }
+  }
+  .main{
+    padding: 30px 0;
+    min-height: calc(100vh - #{$header_height + $footer_height});
+    display: inline-block;
+    width: 100%;
+    float: left;
+    &.hasNavbar{
+      max-width: calc(100% - #{$sidebar_nav});
+    }
+    .btn {
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      overflow: hidden;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      vertical-align: middle;
+      z-index: 1;
+      will-change: opacity, transform;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      -ms-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+      padding: 8px 25px;
+      &.btn-primary{
+        color: #fff;
+        background: $cta_color;
+        border: 0;
+        outline: 0;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3), 0 2px 12px 0 rgba(0, 0, 0, 0.12);
+        &:hover{
+          background: $cta_hover_color;
+        }
+        &:active{
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 12px 0 rgba(73, 73, 73, 0.25);
+        }
+        &:focus{
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 12px 0 rgba(73, 73, 73, 0.25);
+        }
+      }
+    }
+  }
+  footer{
+    background: #f7f8f9;
+    border-top: 1px solid #e6e7e8;
+    color: #3e3e3e;
+    padding: 15px 0;
+    font-size: 14px;
+    float: left;
+    width: 100%;
+    .reg-no{
+      text-align: right;
+    }
+  }
+
+  @media (min-width: 992px) {
+    &{
+      header{
+        .header-fluid{
+          max-width: 1349px;
+        }
+      }
+      footer{
+        .container-fluid{
+          max-width: 1349px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    &{
+      header{
+      }
+      .main{
+   
+      }
+      footer{
+        text-align: center;
+        .reg-no{
+          text-align: center;
+        }
+      }
+    }
+  }
+}
