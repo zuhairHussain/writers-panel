@@ -15,7 +15,7 @@ class Header extends Component {
                     <div className="container-fluid header-fluid">
                         {
                             !withoutNav && (
-                                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <button onClick={() => this.props.toggleNav()} className="navbar-toggler" type="button">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                             )
@@ -24,6 +24,7 @@ class Header extends Component {
                             <img src={require('../assets/images/logo.png')} className="img-fluid" alt="logo" />
                         </a>
 
+                        <a href="/getstarted" className="btn btn-primary get-started mr-4">Get Started</a>
                         <div className="btn-group user-info">
                             <span className="user-acc-ico" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img className="img-fluid" src={require("../assets/images/user-icon.png")} alt="user" />

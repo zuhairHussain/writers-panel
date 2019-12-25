@@ -1,4 +1,4 @@
-import { authConstants } from '../constants/auth';
+import { authConstants } from '../constants/commonConstants';
 const initialState = {
     isLogin: false,
     loginErrorMessage: "",
@@ -13,7 +13,7 @@ export default function authReducer(state = initialState, action) {
         case authConstants.LOGIN_SUCCESS:
             return { isLogin: true, loginErrorMessage: "", user: action.user, loading: false }
         case authConstants.LOGIN_FAILURE:
-            return { isLogin: false, loginErrorMessage: "", user: '', loading: false }
+            return { isLogin: false, loginErrorMessage: action.error, user: '', loading: false }
         default:
             return state
     }

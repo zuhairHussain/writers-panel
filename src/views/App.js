@@ -2,28 +2,33 @@ import React from 'react';
 import Login from './login/login';
 import Dashboard from './dashboard/dashboard';
 import ErrorPage from './errorPage/errorPage';
-import { createBrowserHistory } from 'history';
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-const history = createBrowserHistory();
+import AccountBilling from './accountBilling/accountBilling';
+import Loader from '../includes/loader'
+import { history } from '../history';
+import { Router, Route, Switch } from "react-router-dom";
+import { connect } from 'react-redux'
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <Router history={history}>
         <Switch>
-          <Route path="/" exact>
-            <Dashboard />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
+          <Route exact path="/" component={Dashboard} />
+          <Route path="/login" component={Login} />
+          <Route path="/billing" component={AccountBilling} />
           <Route path="*">
             <ErrorPage errCode="404" />
           </Route>
         </Switch>
       </Router>
+      <Loader show={props.loader} />
     </div>
   );
 }
 
-export default App;
+function mapState(state) {
+  const { loaderReducer } = state;
+  return { loader: loaderReducer.loading };
+}
+
+export default connect(mapState)(App);

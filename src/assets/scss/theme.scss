@@ -4,3 +4,28 @@ $cta_hover_color : #10ae4b;
 $header_height : 66px;
 $footer_height : 52px;
 $sidebar_nav :  300px;
+
+@font-face {
+    font-family: 'avenir-roman';
+    src: url('./../fonts/avenir_roman/AvenirLTStd-Roman.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'avenir-book';
+    src: url('./../fonts/avenir/AvenirLTStd-Book.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'avenir-heavy';
+    src: url('./../fonts/avenir_heavy/AvenirLT-Heavy.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'avenir-black';
+    src: url('./../fonts/avenir-black/AvenirLTStd-Black.woff');
+    font-weight: normal;
+    font-style: normal;
+}

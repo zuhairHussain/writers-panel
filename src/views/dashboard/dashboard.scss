@@ -1,3 +1,116 @@
 .dashboard-wrapper{
-    
+    .no-log{
+        background-image: url("https://d1v4btv2rwszby.cloudfront.net/public/images/94280_no_log_bg.jpg");
+        background-color: #ededed;
+        border: 1px solid #ababab;
+        padding: 29px 30px;
+        background-size: cover;
+        background-position: right center;
+        border-radius: 4px;
+        .cmp-hed {
+            font-size: 42px;
+            color: #000;
+            margin: 0 0 2px; 
+        }
+        .cmp-para {
+            font-size: 24px;
+            color: #000;
+            margin: 0; 
+        }
+        .cmp-cta {
+            font-size: 18px;
+            color: #000;
+            padding: 13px 26px;
+            border: 1px solid #ababab;
+            margin-top: 22px;
+            display: inline-block; 
+            text-decoration: none;
+            border-radius:4px;
+        }
+        @media (max-width: 800px) {
+            .nolog-cam {
+                background-image: none;
+                .cmp-hed {
+                    font-size: 33px; 
+                }
+                .cmp-para {
+                    font-size: 18px; 
+                }
+                .cmp-cta {
+                    font-size: 16px; 
+                }
+            }
+        }
+    }
+    .bygv-camp-home {
+        padding: 85px 28px 18px;
+        background: #6dc8c9 url("https://d1v4btv2rwszby.cloudfront.net/public/images/90988-home-banner-bg.jpg") no-repeat center;
+        background-size: cover;
+        border-radius: 4px;
+        .cmp-hed {
+          font-size: 30px;
+          color: #fff;
+          margin: 0 0 10px;
+          text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.22);
+          b {
+            font-size: 36px;
+            display: block;
+          }
+        }
+        .cmp-para {
+          font-size: 18px;
+          color: #fff;
+          max-width: 470px;
+          text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.22);
+          margin-bottom: 25px;
+        }
+        .cmp-note {
+          font-size: 14px;
+          color: #fff;
+          text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.22);
+          margin: 55px 0 0;
+        }
+        .cmp-cta {
+          background-color: #f44a3e;
+          color: #fff;
+          text-decoration: none;
+          padding: 14px 24px 12px;
+          font-size: 18px;
+          text-transform: uppercase;
+          display: inline-block;
+          box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.18);
+          -webkit-transition: .3s;
+          -moz-transition: .3s;
+          -ms-transition: .3s;
+          -o-transition: .3s;
+          transition: .3s;
+          border-radius:4px;
+          &:hover {
+            background-color: #f63b2e;
+          }
+        }
+        @media (max-width: 1200px) {
+          & {
+            .cmp-para {
+              font-size: 16px;
+              max-width: 375px;
+            }
+          }
+        }
+        @media (max-width: 767px) {
+          & {
+            background-image: none;
+            padding: 50px 28px 18px;
+            .cmp-hed {
+              font-size: 25px;
+              b {
+                font-size: 33px;
+              }
+            }
+            .cmp-cta {
+              font-size: 15px;
+            }
+          }
+        }
+    }
 }
