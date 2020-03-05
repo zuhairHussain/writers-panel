@@ -10,6 +10,14 @@ import * as serviceWorker from './serviceWorker';
 import './assets/scss/App.scss';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import displayNotification from "./services/helper";
+
+if ('Notification' in window && navigator.serviceWorker) {
+    Notification.requestPermission(function (status) {
+        console.log('Notification permission status:', status);
+    });
+}
+displayNotification();
 
 ReactDOM.render(
     <Provider store={store}>
@@ -21,4 +29,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

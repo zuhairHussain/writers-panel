@@ -6,9 +6,9 @@ export function loginRequest(username, password) {
         dispatch(loader(true));
         dispatch(request());
         setTimeout(() => {
-            // dispatch(success());
-            // history.push("/");
-            dispatch(failure("Email not found."));
+            dispatch(success());
+            history.push("/");
+            // dispatch(failure("Email not found."));
             dispatch(loader(false));
         }, 4000)
     };

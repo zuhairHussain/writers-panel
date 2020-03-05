@@ -18,7 +18,9 @@ class Nav extends Component {
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#"><i className="icon acc"></i> Account Details</a>
+                        <NavLink to='/accountdetails' className="nav-link" activeClassName="active">
+                            <i className="icon acc"></i> Account Details
+                        </NavLink>
                     </li>
                 </ul>
             </nav>

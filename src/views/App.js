@@ -1,21 +1,19 @@
 import React from 'react';
-import Login from './login/login';
-import Dashboard from './dashboard/dashboard';
 import ErrorPage from './errorPage/errorPage';
-import AccountBilling from './accountBilling/accountBilling';
 import Loader from '../includes/loader'
 import { history } from '../history';
 import { Router, Route, Switch } from "react-router-dom";
 import { connect } from 'react-redux'
+import routes from '../routes'
 
 function App(props) {
   return (
     <div className="App">
       <Router history={history}>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/login" component={Login} />
-          <Route path="/billing" component={AccountBilling} />
+          {
+            routes ? routes.map(route => (<Route exact={route.exact ? "true" : "false"} path={route.path} component={route.component} />)) : ""
+          }
           <Route path="*">
             <ErrorPage errCode="404" />
           </Route>
