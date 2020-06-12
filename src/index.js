@@ -8,16 +8,14 @@ import store from './store/store'
 import App from './views/App';
 import * as serviceWorker from './serviceWorker';
 import './assets/scss/App.scss';
-import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle';
-import displayNotification from "./services/helper";
+// import displayNotification from "./services/helper";
 
-if ('Notification' in window && navigator.serviceWorker) {
-    Notification.requestPermission(function (status) {
-        console.log('Notification permission status:', status);
-    });
-}
-displayNotification();
+// if ('Notification' in window && navigator.serviceWorker) {
+//     Notification.requestPermission(function (status) {
+//         console.log('Notification permission status:', status);
+//     });
+// }
+// displayNotification();
 
 ReactDOM.render(
     <Provider store={store}>

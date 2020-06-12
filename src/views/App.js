@@ -12,7 +12,7 @@ function App(props) {
       <Router history={history}>
         <Switch>
           {
-            routes ? routes.map(route => (<Route exact={route.exact ? "true" : "false"} path={route.path} component={route.component} />)) : ""
+            routes ? routes.map((route, i) => (<Route key={i} exact={route.exact ? true : false} path={route.path} component={route.component} />)) : ""
           }
           <Route path="*">
             <ErrorPage errCode="404" />

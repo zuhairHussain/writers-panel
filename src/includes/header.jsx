@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            dropdownOpen: false
         }
+    }
+    toggle = () => {
+        this.setState({ dropdownOpen: !this.state.dropdownOpen })
     }
     render() {
         const { withoutNav } = this.props;
+        const { dropdownOpen } = this.state;
+
         return (
             <header className="header">
                 <nav className="navbar navbar-expand-lg navbar-light">
@@ -21,24 +27,23 @@ class Header extends Component {
                             )
                         }
                         <a className="navbar-brand mr-auto" href="/">
-                            <img src={require('../assets/images/logo.png')} className="img-fluid" alt="logo" />
+                            UV Writers
+                            {/*<img src={require('../assets/images/logo.png')} className="img-fluid" alt="logo" />*/}
                         </a>
 
-                        <a href="/getstarted" className="btn btn-primary get-started mr-4">Get Started</a>
-                        <div className="btn-group user-info">
-                            <span className="user-acc-ico" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img className="img-fluid" src={require("../assets/images/user-icon.png")} alt="user" />
-                            </span>
-                            <div className="dropdown-menu dropdown-menu-right">
-                                <div className="user-details">
-                                    <span className="username">fahad</span>
-                                    <span className="user-email">fahadu11@yopmail.com</span>
-                                </div>
-                                <div className="dropdown-divider"></div>
-                                <button className="dropdown-item" type="button">My Account</button>
-                                <button className="dropdown-item" type="button">Sign Out</button>
-                            </div>
-                        </div>
+                        <ButtonDropdown className="user-info" isOpen={dropdownOpen} toggle={this.toggle}>
+                            <DropdownToggle>
+                                <span className="user-acc-ico" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img className="img-fluid" src={require("../assets/images/user-icon.png")} alt="user" />
+                                </span>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem disabled>fahadu11@yopmail.com</DropdownItem>
+                                <DropdownItem divider />
+                                <DropdownItem>My Account</DropdownItem>
+                                <DropdownItem>Sign Out</DropdownItem>
+                            </DropdownMenu>
+                        </ButtonDropdown>
                     </div>
                 </nav>
             </header >

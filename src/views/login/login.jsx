@@ -75,7 +75,7 @@ class Login extends Component {
                     </div>
                     <div className="text-center mt-4">
                         <button type="button" className="btn btn-primary" onClick={() => this.login()}>Submit</button>
-                        <p className="mt-4">Don't have an account? <a href="https://www.purevpn.com/order" target="_blank">Sign Up</a></p>
+                        <p className="mt-4">Don't have an account? <a href="/signup" target="_blank">Sign Up</a></p>
                     </div>
                 </form>
             </Container>

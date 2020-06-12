@@ -22,8 +22,8 @@ export default class AccountDetails extends Component {
                 <div className="sub-heading-wrapper">
                     <h5 className="d-inline-block mb-3">Personal Info</h5>
                 </div>
-                <p className="d-inline-block mr-3"><b>Name: </b><span>Ali khan</span></p>
-                <p className="d-inline-block"><b>Email: </b><span>ali.khan@gaditek.com</span></p>
+                <p className="d-inline-block mr-3"><b>Name: </b><span>Ali</span></p>
+                <p className="d-inline-block"><b>Email: </b><span>ali@gmail.com</span></p>
 
                 <table class="table table-hover">
                     <thead>
