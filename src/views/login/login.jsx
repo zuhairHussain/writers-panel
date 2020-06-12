@@ -40,7 +40,6 @@ class Login extends Component {
         return (
             <Container className="login-wrapper" withoutNav container="container">
                 <Alert type="danger" show={auth && auth.loginErrorMessage} text={auth.loginErrorMessage} />
-                <img className="top-img" src={require("../../assets/images/login-img.png")} alt="login" />
                 <h2 className="text-center mb-4">Member Login</h2>
                 <form>
                     <div className="form-group">

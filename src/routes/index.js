@@ -1,20 +1,21 @@
-import Dashboard from '../views/dashboard/dashboard';
+import orderListing from '../views/orderListing/orderListing';
 import AccountDetails from '../views/accountDetails/accountDetails';
 import Login from '../views/login/login';
 
 let routes = [
     {
-        path: "/",
-        component: Dashboard,
+        path: "/dashboard",
+        component: orderListing,
         exact: true
     },
     {
-        path: "/login",
+        path: "/dashboard/login",
         component: Login
     },
     {
-        path: "/accountdetails",
-        component: AccountDetails
+        path: "/dashboard/create-order",
+        component: AccountDetails,
+        exact: true
     }
 ]
 

@@ -1,0 +1,13 @@
+.dashboard-wrapper{
+    .action-icons{
+        & > svg{
+            color: #757575;
+            height: 18px;
+            margin: 0 10px 0 0;
+            cursor: pointer;
+        }
+    }
+    .nav-tabs{
+        margin: 0 0 40px;
+    }
+}

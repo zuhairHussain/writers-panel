@@ -22,18 +22,18 @@ class Nav extends Component {
             <nav className={navOpen + " side-nav"}>
                 <ul className="nav flex-column">
                     <li className="nav-item">
-                        <NavLink exact to='/' className="nav-link" activeClassName="active" id="createOrder">
-                            <img alt="Create Order" src={createOrder} />
-                            <Tooltip placement="right" isOpen={tooltip1Open} target="createOrder" toggle={() => this.toggle('tooltip1Open')} fade={true} delay={1}>
-                                Create Order
+                        <NavLink exact to='/dashboard' className="nav-link" activeClassName="active" id="myOrder">
+                            <img alt="My Orders" src={createListing} />
+                            <Tooltip placement="right" isOpen={tooltip2Open} target="myOrder" toggle={() => this.toggle('tooltip2Open')} fade={true} delay={1}>
+                                My Orders
                             </Tooltip>
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink to='/accountdetails' className="nav-link" activeClassName="active" id="myOrder">
-                            <img alt="My Orders" src={createListing} />
-                            <Tooltip placement="right" isOpen={tooltip2Open} target="myOrder" toggle={() => this.toggle('tooltip2Open')} fade={true} delay={1}>
-                                My Orders
+                        <NavLink exact to='/dashboard/create-order' className="nav-link" activeClassName="active" id="createOrder">
+                            <img alt="Create Order" src={createOrder} />
+                            <Tooltip placement="right" isOpen={tooltip1Open} target="createOrder" toggle={() => this.toggle('tooltip1Open')} fade={true} delay={1}>
+                                Create Order
                             </Tooltip>
                         </NavLink>
                     </li>
