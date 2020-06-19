@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ErrorPage from './errorPage/errorPage';
 import Loader from '../includes/loader'
 import { history } from '../history';
 import { Router, Route, Switch } from "react-router-dom";
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { userData } from '../actions/actions';
 import routes from '../routes'
 
-function App(props) {
-  return (
-    <div className="App">
-      <Router history={history}>
-        <Switch>
-          {
-            routes ? routes.map((route, i) => (<Route key={i} exact={route.exact ? true : false} path={route.path} component={route.component} />)) : ""
-          }
-          <Route path="*">
-            <ErrorPage errCode="404" />
-          </Route>
-        </Switch>
-      </Router>
-      <Loader show={props.loader} />
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount() {
+    this.props.fetchData();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Router history={history}>
+          <Switch>
+            {
+              routes ? routes.map((route, i) => (<Route key={i} exact={route.exact ? true : false} path={route.path} component={route.component} />)) : ""
+            }
+            <Route path="*">
+              <ErrorPage errCode="404" />
+            </Route>
+          </Switch>
+        </Router>
+        <Loader show={this.props.loader} />
+      </div>
+    );
+  }
 }
 
 function mapState(state) {
@@ -29,4 +37,8 @@ function mapState(state) {
   return { loader: loaderReducer.loading };
 }
 
-export default connect(mapState)(App);
+const actionCreators = {
+  fetchData: userData
+};
+
+export default connect(mapState, actionCreators)(App);

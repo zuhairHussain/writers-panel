@@ -4,4 +4,11 @@ export const authConstants = {
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE'
 };
+
+export const userDataConstants = {
+    FETCH_DATA: 'FETCH_DATA',
+    FETCH_DATA_SUCCESS: 'FETCH_DATA_SUCCESS',
+    FETCH_DATA_FAILURE: 'FETCH_DATA_FAILURE'
+}
+
 export const LOADER_REQUEST = 'LOADER_REQUEST'

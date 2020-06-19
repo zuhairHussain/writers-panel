@@ -1,22 +1,88 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { userData } from '../../actions/actions';
 import Container from '../../includes/container';
 import './orderListing.scss';
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import classnames from 'classnames';
 import MUIDataTable from "mui-datatables";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import emptyState from '../../assets/images/empty-state.png';
+import { NavLink as RouterNavLink } from 'react-router-dom';
+import Alert from '../../components/alerts/alerts';
 
 class orderListing extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: '1'
+            activeTab: '1',
+            editOpen: false,
+            viewOpen: false,
+            selectedOrder: {},
+            columns: [
+                {
+                    name: "id",
+                    label: "ID",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "title",
+                    label: "Title",
+                    options: {
+                        filter: true,
+                        sort: false,
+                    }
+                },
+                {
+                    name: "pages",
+                    label: "Pages",
+                    options: {
+                        filter: true,
+                        sort: false,
+                    }
+                },
+                {
+                    name: "academic_level",
+                    label: "Academic Level",
+                    options: {
+                        filter: true,
+                        sort: false,
+                    }
+                },
+                {
+                    name: "action",
+                    label: "Action",
+                    options: {
+                        filter: false,
+                        sort: false,
+                        customBodyRender: (value, tableMeta, updateValue) => {
+                            let id = tableMeta.rowData[0];
+                            return (
+                                <div className="action-icons">
+                                    <VisibilityIcon onClick={() => this.viewOrder(id)} />
+                                    <EditIcon />
+                                    <DeleteIcon />
+                                </div>
+                            );
+                        }
+                    }
+                }
+            ],
+            options: {
+                filterType: "dropdown",
+                responsive: "scroll",
+                selectableRows: false,
+                selectableRowsHeader: false
+            }
         }
     }
-    toggle = tab => {
+    tabToggle = tab => {
         if (this.state.activeTab !== tab) {
             this.setState({ activeTab: tab });
         }
@@ -32,72 +98,58 @@ class orderListing extends Component {
             }
         }
     })
-    render() {
-        const { activeTab } = this.state;
-        const columns = [
-            {
-                name: "id",
-                label: "ID",
-                options: {
-                    filter: true,
-                    sort: true,
-                }
-            },
-            {
-                name: "title",
-                label: "Title",
-                options: {
-                    filter: true,
-                    sort: false,
-                }
-            },
-            {
-                name: "pages",
-                label: "Pages",
-                options: {
-                    filter: true,
-                    sort: false,
-                }
-            },
-            {
-                name: "academic_level",
-                label: "Academic Level",
-                options: {
-                    filter: true,
-                    sort: false,
-                }
-            },
-            {
-                name: "action",
-                label: "Action",
-                options: {
-                    filter: false,
-                    sort: false,
-                    customBodyRender: (value, tableMeta, updateValue) => {
-                        return (
-                            <div className="action-icons">
-                                <VisibilityIcon />
-                                <EditIcon />
-                                <DeleteIcon />
-                            </div>
-                        );
-                    }
-                }
-            }
-        ];
-        const options = {
-            filterType: "dropdown",
-            responsive: "scroll",
-            selectableRows: false,
-            selectableRowsHeader: false
-        };
-        const data = [
-            { id: 1, title: "Test Corp", pages: 20, academic_level: "Phd" },
-            { id: 2, title: "Test Corp", pages: 56, academic_level: "Phd" },
-            { id: 3, title: "Test Corp", pages: 69, academic_level: "Phd" },
-            { id: 4, title: "Test Corp", pages: 10, academic_level: "Phd" },
-        ];
 
+    modalToggle = (state) => {
+        this.setState({ [state]: !this.state[state] });
+    }
+    viewOrder = (id) => {
+        const { data } = this.props;
+        if (id) {
+            let currentData = data.filter(d => d.id === id);
+            this.setState({ selectedOrder: currentData[0] });
+            console.log(this.state.selectedOrder, currentData)
+            this.modalToggle('viewOpen');
+        }
+    }
+
+    generateTables = (status) => {
+        const { data, dataError } = this.props;
+        const { columns, options } = this.state;
+        let tableData = [];
+
+        if (data && data.length) {
+            tableData = data.filter(d => d.status === status);
+        }
+
+        if (dataError) {
+            return <Alert type="danger" show={dataError} text={dataError} />;
+        } else if (tableData && tableData.length) {
+            return (
+                <React.Fragment>
+
+                    <MuiThemeProvider theme={this.getMuiTheme()}>
+                        <MUIDataTable
+                            title={status + " Orders"}
+                            data={tableData}
+                            columns={columns}
+                            options={options}
+                        />
+                    </MuiThemeProvider>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <div className="empty-state">
+                    <img className="placeholder-img" src={emptyState} />
+                    <p>No orders found yet!</p>
+                    <RouterNavLink exact to='/dashboard/create-order' className="btn btn-primary">Order Now</RouterNavLink>
+                </div>
+            )
+        }
+    }
+
+    render() {
+        const { activeTab, editOpen, viewOpen } = this.state;
         return (
             <Container className="dashboard-wrapper" >
                 <h4 className="mb-5">Welcome Ali</h4>
@@ -105,7 +157,7 @@ class orderListing extends Component {
                     <NavItem>
                         <NavLink
                             className={classnames({ active: activeTab === '1' })}
-                            onClick={() => { this.toggle('1'); }}
+                            onClick={() => { this.tabToggle('1'); }}
                         >
                             Recent
                         </NavLink>
@@ -113,7 +165,7 @@ class orderListing extends Component {
                     <NavItem>
                         <NavLink
                             className={classnames({ active: activeTab === '2' })}
-                            onClick={() => { this.toggle('2'); }}
+                            onClick={() => { this.tabToggle('2'); }}
                         >
                             Finished
                         </NavLink>
@@ -121,7 +173,7 @@ class orderListing extends Component {
                     <NavItem>
                         <NavLink
                             className={classnames({ active: activeTab === '3' })}
-                            onClick={() => { this.toggle('3'); }}
+                            onClick={() => { this.tabToggle('3'); }}
                         >
                             Canceled
                         </NavLink>
@@ -129,26 +181,31 @@ class orderListing extends Component {
                 </Nav>
                 <TabContent activeTab={activeTab}>
                     <TabPane tabId="1">
-                        <MuiThemeProvider theme={this.getMuiTheme()}>
-                            <MUIDataTable
-                                title={"Employee List"}
-                                data={data}
-                                columns={columns}
-                                options={options}
-                            />
-                        </MuiThemeProvider>
-
+                        {this.generateTables("recent")}
                     </TabPane>
                     <TabPane tabId="2">
-
+                        {this.generateTables("finished")}
                     </TabPane>
                     <TabPane tabId="3">
-
+                        {this.generateTables("canceled")}
                     </TabPane>
                 </TabContent>
+                <Modal isOpen={viewOpen} toggle={() => this.modalToggle('viewOpen')}>
+                    <ModalHeader toggle={() => this.modalToggle('viewOpen')}>View Order{}</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                </Modal>
             </Container>
         );
     }
 }
 
-export default orderListing;
+function mapState(state) {
+    const { userDataReducer } = state;
+    return { data: userDataReducer.data, dataError: userDataReducer.errorMessage };
+}
+
+const actionCreators = {};
+
+export default connect(mapState, actionCreators)(orderListing);

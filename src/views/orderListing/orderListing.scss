@@ -1,3 +1,4 @@
+@import "../../assets/scss/App.scss";
 .dashboard-wrapper{
     .action-icons{
         & > svg{
@@ -9,5 +10,48 @@
     }
     .nav-tabs{
         margin: 0 0 40px;
+        .nav-item{
+            .nav-link {
+                border: 0;
+                cursor: pointer;
+                position: relative;
+                color: #666;
+                &.active{
+                    background-color: transparent;
+                    border: 0;
+                    color: #000;
+                    &::after, &:hover::after{
+                        content: "";
+                        position: absolute;
+                        bottom: -2px;
+                        left: 0;
+                        width: 100%;
+                        height: 3px;
+                        background-color: $cta_color;
+                    }
+                }
+                &:hover{
+                    &::after{
+                        content: "";
+                        position: absolute;
+                        bottom: -2px;
+                        left: 0;
+                        width: 100%;
+                        height: 3px;
+                        background-color: #dbdbdb;
+                    }
+                }
+            }
+        }
+    }
+    .empty-state{
+        text-align: center;
+        .placeholder-img{
+            max-width: 200px;
+            margin: 40px auto 20px;
+        }
+        p{
+
+        }
     }
 }
