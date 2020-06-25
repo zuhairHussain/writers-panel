@@ -6,7 +6,7 @@ import Alert from '../../components/alerts/alerts';
 import './register.scss';
 import { Validator, ErrorMessages, isAllValid } from '../../services/validator';
 import { history } from '../../history';
-
+import { NavLink } from 'react-router-dom';
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -88,7 +88,7 @@ class Register extends Component {
                     </div>
                     <div className="text-center mt-4">
                         <button type="button" className="btn btn-primary" onClick={() => this.register()}>Submit</button>
-                        <p className="mt-4">Don't have an account? <a href="/signup" target="_blank">Sign Up</a></p>
+                        <p className="mt-4">Already have an account? <NavLink exact to='/dashboard/login'>Login</NavLink></p>
                     </div>
                 </form>
             </Container>
