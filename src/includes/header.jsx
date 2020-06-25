@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { logoutRequest } from '../actions/actions';
 
 class Header extends Component {
     constructor(props) {
@@ -41,7 +43,7 @@ class Header extends Component {
                                 <DropdownItem disabled>fahadu11@yopmail.com</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>My Account</DropdownItem>
-                                <DropdownItem>Sign Out</DropdownItem>
+                                <DropdownItem onClick={() => this.props.logout()}>Sign Out</DropdownItem>
                             </DropdownMenu>
                         </ButtonDropdown>
                     </div>
@@ -51,4 +53,13 @@ class Header extends Component {
     }
 }
 
-export default Header;
+function mapState(state) {
+    // const { authReducer } = state;
+    // return { auth: authReducer };
+}
+
+const actionCreators = {
+    logout: logoutRequest
+};
+
+export default connect(null, actionCreators)(Header);

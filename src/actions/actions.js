@@ -1,21 +1,69 @@
 import { authConstants, LOADER_REQUEST, userDataConstants } from '../constants/commonConstants';
+import { userService } from '../services/services';
 import { history } from '../history';
 
-export function loginRequest(username, password) {
+export function loginRequest(email, password) {
     return dispatch => {
         dispatch(loader(true));
-        dispatch(request());
-        setTimeout(() => {
-            dispatch(success());
-            history.push("/");
-            // dispatch(failure("Email not found."));
-            dispatch(loader(false));
-        }, 4000)
+        dispatch(request({ email }));
+
+        userService.login(email, password)
+            .then(
+                user => {
+                    if (user.success) {
+                        dispatch(loader(false));
+                        dispatch(success(user));
+                        history.push('/dashboard');
+                    } else {
+                        dispatch(loader(false));
+                        dispatch(failure(user.message.toString()));
+                    }
+                },
+                error => {
+                    dispatch(loader(false));
+                    dispatch(failure(error.toString()));
+                }
+            );
     };
 
     function request() { return { type: authConstants.LOGIN_REQUEST } }
     function success(user) { return { type: authConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
+}
+
+export function registerRequest(name, email, password) {
+    return dispatch => {
+        dispatch(loader(true));
+        dispatch(request({ email }));
+
+        userService.register(name, email, password)
+            .then(
+                user => {
+                    if (user.success) {
+                        dispatch(loader(false));
+                        dispatch(success(user));
+                        history.push('/dashboard');
+                    } else {
+                        dispatch(loader(false));
+                        dispatch(failure(user.message.toString()));
+                    }
+                },
+                error => {
+                    dispatch(loader(false));
+                    dispatch(failure(error.toString()));
+                }
+            );
+    };
+
+    function request() { return { type: authConstants.REGISTER_REQUEST } }
+    function success(user) { return { type: authConstants.REGISTER_SUCCESS, user } }
+    function failure(error) { return { type: authConstants.REGISTER_FAILURE, error } }
+}
+
+export function logoutRequest() {
+    userService.logout();
+    history.push('/dashboard/login');
+    return { type: authConstants.LOGOUT };
 }
 
 export function userData() {

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginRequest } from '../../actions/actions';
+import { registerRequest } from '../../actions/actions';
 import Container from '../../includes/container';
 import Alert from '../../components/alerts/alerts';
-import './login.scss';
+import './register.scss';
 import { Validator, ErrorMessages, isAllValid } from '../../services/validator';
 import { history } from '../../history';
-import { NavLink } from 'react-router-dom';
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.validator = new Validator();
@@ -23,18 +22,20 @@ class Login extends Component {
             history.push('/dashboard');
         }
     }
-    login() {
-        const { email, password } = this.state
+    register() {
+        const { userName, email, password } = this.state
+        let userNameValid = this.validator.valid("text", userName, true);
         let emailValid = this.validator.valid("email", email, true);
         let passValid = this.validator.valid("text", password, true);
 
+        this.setState(userNameValid.error ? { userNameError: userNameValid.message } : { userNameError: '' })
         this.setState(emailValid.error ? { emailError: emailValid.message } : { emailError: '' })
         this.setState(passValid.error ? { passwordError: passValid.message } : { passwordError: '' })
 
-        let isValid = isAllValid([emailValid.error, passValid.error]);
+        let isValid = isAllValid([userNameValid.error, emailValid.error, passValid.error]);
 
         if (isValid) {
-            this.props.login(email, password);
+            this.props.register(userName, email, password);
         }
     }
     errorMessages(error) {
@@ -43,12 +44,24 @@ class Login extends Component {
         );
     }
     render() {
-        const { auth } = this.props;
-        const { email, password, emailError, passwordError } = this.state;
+        const { registerReducer } = this.props;
+        const { userName, email, password, userNameError, emailError, passwordError } = this.state;
         return (
             <Container className="login-wrapper" withoutNav container="container">
-                <Alert type="danger" show={auth && auth.loginErrorMessage} text={auth.loginErrorMessage} />
+                <Alert type="danger" show={registerReducer && registerReducer.registerErrorMessage} text={registerReducer.registerErrorMessage} />
                 <form>
+                    <div className="form-group">
+                        <label htmlFor="userName">Name:</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter Name"
+                            id="userName"
+                            value={userName}
+                            onChange={(e) => this.setState({ userName: e.target.value })}
+                        />
+                        <ErrorMessages error={userNameError} />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="email">Email address:</label>
                         <input
@@ -74,8 +87,8 @@ class Login extends Component {
                         <ErrorMessages error={passwordError} />
                     </div>
                     <div className="text-center mt-4">
-                        <button type="button" className="btn btn-primary" onClick={() => this.login()}>Submit</button>
-                        <p className="mt-4">Don't have an account? <NavLink exact to='/dashboard/sign-up'>Sign Up</NavLink></p>
+                        <button type="button" className="btn btn-primary" onClick={() => this.register()}>Submit</button>
+                        <p className="mt-4">Don't have an account? <a href="/signup" target="_blank">Sign Up</a></p>
                     </div>
                 </form>
             </Container>
@@ -84,12 +97,12 @@ class Login extends Component {
 }
 
 function mapState(state) {
-    const { authReducer } = state;
-    return { auth: authReducer };
+    const { registerReducer } = state;
+    return { registerReducer: registerReducer };
 }
 
 const actionCreators = {
-    login: loginRequest
+    register: registerRequest
 };
 
-export default connect(mapState, actionCreators)(Login);
+export default connect(mapState, actionCreators)(Register);
