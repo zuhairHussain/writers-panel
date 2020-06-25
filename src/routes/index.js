@@ -1,5 +1,5 @@
 import orderListing from '../views/orderListing/orderListing';
-import AccountDetails from '../views/accountDetails/accountDetails';
+import createOrder from '../views/createOrder/createOrder';
 import Login from '../views/login/login';
 import Register from '../views/register/register';
 
@@ -20,7 +20,7 @@ let routes = [
     },
     {
         path: "/dashboard/create-order",
-        component: AccountDetails,
+        component: createOrder,
         exact: true,
         private: true
     }

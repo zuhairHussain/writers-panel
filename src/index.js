@@ -8,18 +8,21 @@ import store from './store/store'
 import App from './views/App';
 import * as serviceWorker from './serviceWorker';
 import './assets/scss/App.scss';
-// import displayNotification from "./services/helper";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-// if ('Notification' in window && navigator.serviceWorker) {
-//     Notification.requestPermission(function (status) {
-//         console.log('Notification permission status:', status);
-//     });
-// }
-// displayNotification();
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#ef5742'
+        }
+    }
+});
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <MuiThemeProvider theme={theme}>
+            <App />
+        </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
 );
