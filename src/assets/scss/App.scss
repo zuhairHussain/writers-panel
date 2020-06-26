@@ -4,6 +4,10 @@
 
 body{
   background-color: #f4f8f9;
+  font-family: 'Open Sans', sans-serif;
+  h1,h2,h3,h4,h5,h6{
+    font-weight: 600;
+  }
   .cursor-pointer{
     cursor: pointer;
   }
