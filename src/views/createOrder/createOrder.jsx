@@ -28,11 +28,11 @@ const Card = (props) => {
             margin: theme.spacing(1),
             minWidth: 120,
         },
-       
+
     }));
     const classes = useStyles();
     return (
-        <Paper className={classes.paper}>{props.children}</Paper>
+        <Paper {...props} className={classes.paper}>{props.children}</Paper>
     )
 };
 
@@ -50,7 +50,7 @@ export default class createOrder extends Component {
         const { classes } = this.props;
         return (
             <Container className="order-wrapper">
-                <Grid container={true}  spacing={3}>
+                <Grid container={true} spacing={3}>
                     <Grid item xs={8}>
                         <Card>
                             <h4 class="mb-1 hed">PLACE AN ORDER</h4>
@@ -59,45 +59,52 @@ export default class createOrder extends Component {
                             <p class="mb-3 sec-label">Paper Details</p>
                             <TextField id="outlined-basic" label="Outlined" variant="outlined" />
                             <h4 class="mb-3 hed mt-3">Academic level</h4>
-                            {this.state.levels.map((level, i) => (
-                                <Grid  xs={12} sm={6} md={4} key={i}>
-                                    
-                                    <div className={this.state.selectedLevels == level.id ? "active selct-card" : "selct-card"} 
-                                        onClick={()=>{
-                                            this.setState({
-                                                selectedLevels : level.id,
-                                                selectedPrice : level.prices,
-                                                selectedName : level.level
-                                            });
-                                        }}
-                                    >
-                                        {level.level}
-                                    </div>
-                                    
-                                </Grid>
-                            ))}
+                            <Grid container={true} spacing={6}>
+                                {this.state.levels.map((level, i) => (
+                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedLevels === level.id ? "active selct-card" : "selct-card"}>
+
+                                        <Card
+                                            onClick={() => {
+                                                this.setState({
+                                                    selectedLevels: level.id,
+                                                    selectedPrice: level.prices,
+                                                    selectedName: level.level
+                                                });
+                                            }}
+                                            style={{ height: '100%' }}
+                                        >
+                                            {level.level}
+                                        </Card>
+
+                                    </Grid>
+                                ))}
+                            </Grid>
+
+
                             <h4 class="mb-3 hed mt-3">Deadline</h4>
                             {this.state.selectedPrice.map((deadline, i) => (
                                 <Grid xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedHours == deadline.hours ? "active selct-card" : "selct-card"}
-                                        onClick={()=>{
-                                        this.setState({
-                                            selectedHours : deadline.hours
-                                        })
-                                    }}>
-                                        
+                                    <div className={this.state.selectedHours === deadline.hours ? "active selct-card" : "selct-card"}
+                                        onClick={() => {
+                                            this.setState({
+                                                selectedHours: deadline.hours
+                                            })
+                                        }}>
+
                                         {deadline.label}
-                                        
+
                                     </div>
                                 </Grid>
                             ))}
                             <h4 class="mb-3 hed mt-3">Paper format</h4>
                             {this.state.paperFormat.map((format, i) => (
                                 <Grid xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedPaperFormat == format.name ? "active selct-card" : "selct-card"} 
-                                        onClick={()=>{this.setState({
-                                        selectedPaperFormat : format.name
-                                        })}}
+                                    <div className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}
+                                        onClick={() => {
+                                            this.setState({
+                                                selectedPaperFormat: format.name
+                                            })
+                                        }}
                                     >
                                         {format.name}
                                     </div>
@@ -111,12 +118,14 @@ export default class createOrder extends Component {
                                         title={space.tooltipText}
                                         placement="top"
                                     >
-                                        <div className={this.state.selectedSpace == space.value ? "active selct-card" : "selct-card"} 
-                                        onClick={()=>{this.setState({
-                                            selectedSpace : space.value
-                                        })}}
+                                        <div className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}
+                                            onClick={() => {
+                                                this.setState({
+                                                    selectedSpace: space.value
+                                                })
+                                            }}
                                         >
-                                        {space.value}
+                                            {space.value}
                                         </div>
                                     </Tooltip>
                                 </Grid>
@@ -125,57 +134,57 @@ export default class createOrder extends Component {
                             <h4 class="mb-3 hed mt-3">Writer category</h4>
                             {this.state.writingCategory.map((category, i) => (
                                 <Grid item xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedWritingCategory == category.id ? "active selct-card" : "selct-card"} 
-                                        onClick={()=>{
-                                        this.setState({
-                                            selectedWritingCategory : category.id
-                                        })
-                                    }}
+                                    <div className={this.state.selectedWritingCategory === category.id ? "active selct-card" : "selct-card"}
+                                        onClick={() => {
+                                            this.setState({
+                                                selectedWritingCategory: category.id
+                                            })
+                                        }}
                                     >
                                         <div>
                                             <b>{category.label}</b> {category.extra}
                                         </div>
                                         <div>
-                                        {category.description}
+                                            {category.description}
                                         </div>
-                
+
                                     </div>
                                 </Grid>
                             ))}
                             <Grid item xs={12} sm={6} md={4}>
                                 <FormControl variant="outlined" >
                                     <InputLabel id="demo-simple-select-outlined-label">Select paper type</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-outlined-label"
-                                            id="demo-simple-select-outlined"
-                                            value={this.state.selectedPaperType}
-                                            onChange={this.handleSelect}
-                                            label="Select paper type"
-                                        >
-                                            {this.state.paperType.map((paper, i) => (
-                                                <MenuItem
-                                                    key={i}
-                                                    
-                                                    value={paper.type}
-                                                >
-                                                    {paper.type}
-                                                </MenuItem>
-                                            ))}
-                                            
-                                        </Select>
+                                    <Select
+                                        labelId="demo-simple-select-outlined-label"
+                                        id="demo-simple-select-outlined"
+                                        value={this.state.selectedPaperType}
+                                        onChange={this.handleSelect}
+                                        label="Select paper type"
+                                    >
+                                        {this.state.paperType.map((paper, i) => (
+                                            <MenuItem
+                                                key={i}
+
+                                                value={paper.type}
+                                            >
+                                                {paper.type}
+                                            </MenuItem>
+                                        ))}
+
+                                    </Select>
                                 </FormControl>
                             </Grid>
                             <p class="mb-3 sec-label">Title</p>
-                            <TextField  label="Enter the title of your paper" variant="outlined" />
+                            <TextField label="Enter the title of your paper" variant="outlined" />
                         </Card>
-                        
+
                     </Grid>
                     <Grid item xs={4}>
                         <Card>test</Card>
                     </Grid>
                 </Grid>
             </Container>
-            
+
         );
     }
 }
