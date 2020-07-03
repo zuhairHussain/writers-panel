@@ -8,4 +8,19 @@
     .sec-label{
         font-size: 18px;
     }
+    .selectInput{
+        width: 100%;
+    }
+    .selct-card {
+        .MuiPaper-root{
+            margin-top: 0 !important;
+            cursor: pointer;
+        }
+        &.active {
+            .MuiPaper-root{
+                background-color: #ef5742;
+                color: #fff;
+            }
+        }
+    }
 }

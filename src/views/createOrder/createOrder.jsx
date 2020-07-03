@@ -10,9 +10,9 @@ import data from '../../variables/data';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 const Card = (props) => {
     const useStyles = makeStyles((theme) => ({
@@ -20,14 +20,10 @@ const Card = (props) => {
             flexGrow: 1,
         },
         paper: {
-            padding: '25px',
+            padding: '15px',
             textAlign: 'left',
             color: '#000',
-        },
-        formControl: {
-            margin: theme.spacing(1),
-            minWidth: 120,
-        },
+        }
 
     }));
     const classes = useStyles();
@@ -37,6 +33,7 @@ const Card = (props) => {
 };
 
 export default class createOrder extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -56,10 +53,8 @@ export default class createOrder extends Component {
                             <h4 class="mb-1 hed">PLACE AN ORDER</h4>
                             <p class="mb-5 sub-hed">It's fast, secure and confidential</p>
 
-                            <p class="mb-3 sec-label">Paper Details</p>
-                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
                             <h4 class="mb-3 hed mt-3">Academic level</h4>
-                            <Grid container={true} spacing={6}>
+                            <Grid container={true} spacing={3}>
                                 {this.state.levels.map((level, i) => (
                                     <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedLevels === level.id ? "active selct-card" : "selct-card"}>
 
@@ -82,100 +77,227 @@ export default class createOrder extends Component {
 
 
                             <h4 class="mb-3 hed mt-3">Deadline</h4>
-                            {this.state.selectedPrice.map((deadline, i) => (
-                                <Grid xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedHours === deadline.hours ? "active selct-card" : "selct-card"}
-                                        onClick={() => {
-                                            this.setState({
-                                                selectedHours: deadline.hours
-                                            })
-                                        }}>
-
-                                        {deadline.label}
-
-                                    </div>
-                                </Grid>
-                            ))}
-                            <h4 class="mb-3 hed mt-3">Paper format</h4>
-                            {this.state.paperFormat.map((format, i) => (
-                                <Grid xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}
-                                        onClick={() => {
-                                            this.setState({
-                                                selectedPaperFormat: format.name
-                                            })
-                                        }}
-                                    >
-                                        {format.name}
-                                    </div>
-                                </Grid>
-                            ))}
-                            <h4 class="mb-3 hed mt-3">Spacing</h4>
-                            {this.state.spacing.map((space, i) => (
-                                <Grid xs={12} sm={6} md={4} key={i}>
-                                    <Tooltip
-                                        id="tooltip-top"
-                                        title={space.tooltipText}
-                                        placement="top"
-                                    >
-                                        <div className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}
+                            <Grid container={true} spacing={3}>
+                                {this.state.selectedPrice.map((deadline, i) => (
+                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedHours === deadline.hours ? "active selct-card" : "selct-card"}>
+                                        <Card 
                                             onClick={() => {
                                                 this.setState({
-                                                    selectedSpace: space.value
-                                                })
+                                                    selectedHours: deadline.hours
+                                                });
                                             }}
+                                            style={{ height: '100%' }}
                                         >
-                                            {space.value}
-                                        </div>
-                                    </Tooltip>
-                                </Grid>
-                            ))}
 
-                            <h4 class="mb-3 hed mt-3">Writer category</h4>
-                            {this.state.writingCategory.map((category, i) => (
-                                <Grid item xs={12} sm={6} md={4} key={i}>
-                                    <div className={this.state.selectedWritingCategory === category.id ? "active selct-card" : "selct-card"}
-                                        onClick={() => {
-                                            this.setState({
-                                                selectedWritingCategory: category.id
-                                            })
-                                        }}
-                                    >
-                                        <div>
-                                            <b>{category.label}</b> {category.extra}
-                                        </div>
-                                        <div>
-                                            {category.description}
-                                        </div>
+                                            {deadline.label}
 
-                                    </div>
-                                </Grid>
-                            ))}
-                            <Grid item xs={12} sm={6} md={4}>
-                                <FormControl variant="outlined" >
-                                    <InputLabel id="demo-simple-select-outlined-label">Select paper type</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-outlined-label"
-                                        id="demo-simple-select-outlined"
-                                        value={this.state.selectedPaperType}
-                                        onChange={this.handleSelect}
-                                        label="Select paper type"
-                                    >
-                                        {this.state.paperType.map((paper, i) => (
-                                            <MenuItem
-                                                key={i}
-
-                                                value={paper.type}
-                                            >
-                                                {paper.type}
-                                            </MenuItem>
-                                        ))}
-
-                                    </Select>
-                                </FormControl>
+                                        </Card>
+                                    </Grid>
+                                ))}
                             </Grid>
-                            <p class="mb-3 sec-label">Title</p>
-                            <TextField label="Enter the title of your paper" variant="outlined" />
+                            <h4 class="mb-3 hed mt-3">Paper format</h4>
+                            <Grid container={true} spacing={3}>
+                                {this.state.paperFormat.map((format, i) => (
+                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}>
+                                        <Card 
+                                            onClick={() => {
+                                                this.setState({
+                                                    selectedPaperFormat: format.name
+                                                });
+                                            }}
+                                            style={{ height: '100%' }}
+                                        >
+                                            {format.name}
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            
+                            <h4 class="mb-3 hed mt-3">Spacing</h4>
+                            <Grid container={true} spacing={3}>
+                                {this.state.spacing.map((space, i) => (
+                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}>
+                                        <Tooltip
+                                            id="tooltip-top"
+                                            title={space.tooltipText}
+                                            placement="top"
+                                            arrow
+                                        >
+                                            <div 
+                                                onClick={() => {
+                                                    this.setState({
+                                                        selectedSpace: space.value
+                                                    });
+                                                }}
+                                                style={{ height: '100%' }}
+                                            >
+                                                {space.value}
+                                            </div>
+                                        </Tooltip>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <h4 class="mb-3 hed mt-3">Writer category</h4>
+                            <Grid container={true} spacing={3}>
+                                {this.state.writingCategory.map((category, i) => (
+                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedWritingCategory === category.id ? "active selct-card" : "selct-card"}>
+                                        <Card 
+                                            onClick={() => {
+                                                this.setState({
+                                                    selectedWritingCategory: category.id
+                                                });
+                                            }}
+                                            style={{ height: '100%' }}
+                                        >
+                                            <div>
+                                                <b>{category.label}</b> {category.extra}
+                                            </div>
+                                            <div>
+                                                {category.description}
+                                            </div>
+
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            
+                            <Grid container={true} spacing={3}>
+                                <Grid item sm={6}>
+                                    <p class="mb-3 sec-label">Paper type</p>
+                                    <FormControl variant="outlined" >
+                                        <InputLabel id="select-paper-type" className="selectInput">Select paper type</InputLabel>
+                                        <Select
+                                            labelId="select-paper-type"
+                                            id="select-paper-type-outlined"
+                                            value={this.state.selectedPaperType}
+                                            onChange={this.handleSelect}
+                                            label="Select paper type"
+                                        >
+                                            {this.state.paperType.map((paper, i) => (
+                                                <MenuItem
+                                                    key={i}
+
+                                                    value={paper.type}
+                                                >
+                                                    {paper.type}
+                                                </MenuItem>
+                                            ))}
+
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3}>
+                                <Grid item md={12}>
+                                    <p class="mb-3 sec-label">Title</p>
+                                    <TextField label="Enter the title of your paper" variant="outlined" className="selectInput"/>
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3}>
+                                <Grid item md={12}>
+                                    <p class="mb-3 sec-label">Paper instructions</p>
+                                    <TextField
+                                        id="outlined-multiline-static"
+                                        label="Write anything you feel is important for the writer to consider. An outline, a grading scale, and other documents may be uploaded as additional materials."
+                                        multiline
+                                        rows={4}
+                                        variant="outlined"
+                                        className="selectInput"
+                                        placeholder=""
+                                        />
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3}>
+                                <Grid item md={12}>
+                                    <p class="mb-3 sec-label">Discipline</p>
+                                    <FormControl variant="outlined" >
+                                        <InputLabel id="select-discipline" className="selectInput" htmlFor="grouped-select">Select Discipline</InputLabel>
+                                        <Select
+                                            labelId="select-discipline"
+                                            value={this.state.selectedSubject}
+                                            onChange={this.handleSelect}
+                                            label="Select paper type"
+                                        >
+                                            {this.state.subjectList.map((subjectCategories, j) => {
+                                                return(
+                                                    subjectCategories.category_names.map((d, i) => {
+                                                    {
+                                                        return d.isLabel ? (
+                                                        <ListSubheader key={i} style={{backgroundColor : "#fff"}}>{d.name}</ListSubheader>
+                                                        )  : (
+                                                            <MenuItem
+                                                            key={i}
+                                                            value={j + "-" + d.subject_name}
+                                                            >
+                                                            {d.subject_name}
+                                                            </MenuItem>
+                                                        )
+                                                    }
+                                                        
+                                                    })
+                                                )
+                                            })}
+
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3}>
+                                <Grid item md={6} sm={12}>
+                                    <p class="mb-3 sec-label">Pages</p>
+                                    <TextField
+                                    label="Pages Count"
+                                    type="number"
+                                    defaultValue="1"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    className="selectInput"
+                                    variant="outlined"
+                                    />
+                                </Grid>
+                                <Grid item md={6} sm={12}>
+                                    <p class="mb-3 sec-label">Sources to be cited</p>
+                                    <TextField
+                                    label="Sources Count"
+                                    type="number"
+                                    defaultValue="0"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    className="selectInput"
+                                    variant="outlined"
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3}>
+                                <Grid item md={6} sm={12}>
+                                    <p class="mb-3 sec-label">Charts</p>
+                                    <TextField
+                                    label="Charts Count"
+                                    type="number"
+                                    defaultValue="0"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    className="selectInput"
+                                    variant="outlined"
+                                    />
+                                </Grid>
+                                <Grid item md={6} sm={12}>
+                                    <p class="mb-3 sec-label">PowerPoint slides</p>
+                                    <TextField
+                                    label="slides Count"
+                                    type="number"
+                                    defaultValue="0"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    className="selectInput"
+                                    variant="outlined"
+                                    />
+                                </Grid>
+                            </Grid>
                         </Card>
 
                     </Grid>
