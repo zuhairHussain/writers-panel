@@ -1,6 +1,12 @@
 .order-wrapper{
+    .order-container{
+        padding: 0 30px;
+    }
     .hed{
         font-size: 1.3rem;
+    }
+    .hed-2{
+        font-size: 1rem;
     }
     .sub-hed{
         color: #4c4c4c;
@@ -8,7 +14,7 @@
     .sec-label{
         font-size: 18px;
     }
-    .selectInput{
+    .selectInput, .MuiFormControl-root{
         width: 100%;
     }
     .selct-card {
