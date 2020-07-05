@@ -443,6 +443,37 @@ let data = {
     }],
     "selectedWritingCategory" : "1",
     "selectedWritingCategoryPercentage" : 0,
+    "additionalServices" :[{
+      "id": "1",
+      "label": "Smart paper",
+      "description": "Detailed comments on the key writing aspects of your paper",
+      "result_description": "Get your paper with comprehensive explanations of structure, formatting, and so on, along with precise guidelines for your own writing.",
+      "extra": "+20%",
+      "percentage": 0.20
+    }, {
+      "id": "2",
+      "label": "Writer samples",
+      "description": "3 samples of works previously completed by your writer",
+      "result_description": "Receive 3 randomly generated pages from your writer’s previous works to evaluate his or her style.",
+      "extra": "$5.00",
+      "amount": 5
+    }, {
+      "id": "3",
+      "label": "Copy of sources",
+      "description": "Selection of related articles and books, cited in your paper",
+      "result_description": "Get links to scholarly articles, books, and other sources of information your writer used while preparing your paper.",
+      "extra": "+10%",
+      "percentage": 0.10
+    }, {
+      "id": "4",
+      "label": "Progressive delivery",
+      "description": "Part-by-part delivery of your paper",
+      "result_description": "Get your complex paper delivered step by step and pay for it in installments. Available for orders with a deadline of 5 days or longer, and with a value of $200 or more.",
+      "extra": "+10%",
+      "percentage": 0.10
+    }],
+    "selectedAdditionalServices" : "1",
+    "selectedAdditionalServicesPercentage" : 0,
     "selectedSubject" : "",
     "subjectList" : [{
       "category_id": "1",

@@ -15,13 +15,21 @@ import Select from '@material-ui/core/Select';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+
+import Button from '@material-ui/core/Button';
+
 const Card = (props) => {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
         },
         paper: {
-            padding: '30px',
+            padding: '10px',
             textAlign: 'left',
             color: '#000',
         }
@@ -44,6 +52,7 @@ export default class createOrder extends Component {
     handleSelect = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
+
     render() {
         const { classes } = this.props;
         return (
@@ -55,9 +64,9 @@ export default class createOrder extends Component {
                             <p className="mb-4 sub-hed">It's fast, secure and confidential</p>
 
                             <h4 className="mb-3 hed-2 mt-3">Academic level</h4>
-                            <Grid container={true} spacing={3}>
+                            <Grid container={true} spacing={2}>
                                 {this.state.levels.map((level, i) => (
-                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedLevels === level.id ? "active selct-card" : "selct-card"}>
+                                    <Grid item xs={12} sm={6} md={2} key={i} className={this.state.selectedLevels === level.id ? "active selct-card" : "selct-card"}>
 
                                         <Card
                                             onClick={() => {
@@ -78,16 +87,16 @@ export default class createOrder extends Component {
 
 
                             <h4 className="mt-5 mb-3 hed-2 mt-3">Deadline</h4>
-                            <Grid container={true} spacing={3}>
+                            <Grid container={true} spacing={1}>
                                 {this.state.selectedPrice.map((deadline, i) => (
-                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedHours === deadline.hours ? "active selct-card" : "selct-card"}>
+                                    <Grid item xs={12} sm={6} md={1} key={i} className={this.state.selectedHours === deadline.hours ? "active selct-card" : "selct-card"}>
                                         <Card
                                             onClick={() => {
                                                 this.setState({
                                                     selectedHours: deadline.hours
                                                 });
                                             }}
-                                            style={{ height: '100%' }}
+                                            style={{ height: '100%', textAlign: 'center' }}
                                         >
 
                                             {deadline.label}
@@ -97,9 +106,9 @@ export default class createOrder extends Component {
                                 ))}
                             </Grid>
                             <h4 className="mt-5 mb-3 hed-2 mt-3">Paper format</h4>
-                            <Grid container={true} spacing={3}>
+                            <Grid container={true} spacing={1}>
                                 {this.state.paperFormat.map((format, i) => (
-                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}>
+                                    <Grid item xs={12} sm={6} md={2} key={i} className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}>
                                         <Card
                                             onClick={() => {
                                                 this.setState({
@@ -115,7 +124,7 @@ export default class createOrder extends Component {
                             </Grid>
 
                             <h4 className="mt-5 mb-3 hed-2 mt-3">Spacing</h4>
-                            <Grid container={true} spacing={3}>
+                            <Grid container={true} spacing={1}>
                                 {this.state.spacing.map((space, i) => (
 
                                     <Tooltip
@@ -125,7 +134,7 @@ export default class createOrder extends Component {
                                         arrow
                                         key={i}
                                     >
-                                        <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}>
+                                        <Grid item xs={12} sm={6} md={2} key={i} className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}>
                                             <Card
                                                 onClick={() => {
                                                     this.setState({
@@ -141,9 +150,9 @@ export default class createOrder extends Component {
                                 ))}
                             </Grid>
                             <h4 className="mt-5 mb-3 hed-2 mt-3">Writer category</h4>
-                            <Grid container={true} spacing={3}>
+                            <Grid container={true} spacing={1}>
                                 {this.state.writingCategory.map((category, i) => (
-                                    <Grid item xs={12} sm={6} md={4} key={i} className={this.state.selectedWritingCategory === category.id ? "active selct-card" : "selct-card"}>
+                                    <Grid item xs={12} sm={6} md={3} key={i} className={this.state.selectedWritingCategory === category.id ? "active selct-card" : "selct-card"}>
                                         <Card
                                             onClick={() => {
                                                 this.setState({
@@ -297,6 +306,47 @@ export default class createOrder extends Component {
                                         className="selectInput"
                                         variant="outlined"
                                     />
+                                </Grid>
+                            </Grid>
+                            <Grid container={true} spacing={3} className="mt-3">
+                                <Grid item md={6} sm={12}>
+                                    <div>
+                                        <input
+                                            id="contained-button-file"
+                                            multiple
+                                            type="file"
+                                        />
+                                        <label htmlFor="contained-button-file">
+                                            <Button variant="contained" color="primary" component="span">
+                                            Upload
+                                            </Button>
+                                        </label>
+                                    </div>
+                                </Grid>
+                            </Grid>
+                            
+                            <Grid container={true} spacing={3} className="mt-3">
+                                <Grid item sm={12}>
+                                    <h4 className="mt-5 mb-3 hed-2 mt-3">Additional services</h4>
+                                    <List>
+                                        {this.state.additionalServices.map((value) => {
+                                            const labelId = `checkbox-list-label-${value}`;
+
+                                            return (
+                                            <ListItem key={value} role={undefined} dense button>
+                                                <ListItemIcon>
+                                                <Checkbox
+                                                    edge="start"
+                                                    tabIndex={-1}
+                                                    disableRipple
+                                                    inputProps={{ 'aria-labelledby': labelId }}
+                                                />
+                                                </ListItemIcon>
+                                                <ListItemText id={labelId} primary={value.label} secondary={value.description} />
+                                            </ListItem>
+                                            );
+                                        })}
+                                    </List>
                                 </Grid>
                             </Grid>
                         </Card>
