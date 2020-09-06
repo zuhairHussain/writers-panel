@@ -228,9 +228,13 @@ let data = {
       "amount": "60"
     }]
   }],
+  "selectedAmount": 9,
   "selectedLevels": 1,
   "selectedName": "High School",
-  "selectedPages": 1,
+  "pageCount": 1,
+  "sourceCount": 0,
+  "chartCount": 0,
+  "slideCount": 0,
   "selectedDeadline": "checked",
   "selectedHours": "336",
   "selectedPrice": [{
@@ -426,7 +430,8 @@ let data = {
   "writingCategory": [{
     "id": "1",
     "label": "Best Available",
-    "description": "Standard price"
+    "description": "Standard price",
+    "percentage": 0
   }, {
     "id": "2",
     "label": "Advanced",

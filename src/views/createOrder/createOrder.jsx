@@ -14,14 +14,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import StickySidebar from 'sticky-sidebar';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-
 import Button from '@material-ui/core/Button';
+import Alert from '../../components/alerts/alerts';
 
 const Card = (props) => {
     const useStyles = makeStyles((theme) => ({
@@ -47,8 +48,20 @@ export default class createOrder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...data
+            ...data,
+            addService1: false,
+            addService2: false,
+            addService3: false,
+            addService4: false
         }
+    }
+    componentDidMount() {
+        new StickySidebar('.sidebar', {
+            topSpacing: 87,
+            bottomSpacing: 20,
+            containerSelector: '.cnt-wrp',
+            innerWrapperSelector: '.sidebar__inner'
+        });
     }
     handleChange = (prop) => (event) => {
         this.setState({ [prop]: event.target.value }, () => {
@@ -89,10 +102,39 @@ export default class createOrder extends Component {
     }
 
     render() {
-        const { selectedPaperTypeErr, paperTitleErr, selectedSubjectErr } = this.state;
+        const { addService1, addService2, addService3, addService4, selectedWritingCategoryPercentage, selectedSpace,
+            paperTitle, selectedAmount, pageCount, slideCount, chartCount,
+            selectedName, selectedPaperTypeErr, paperTitleErr, selectedSubjectErr
+        } = this.state;
+        let grandTotal, totalPagePrice, totalSlidePrice, totalChartPrice, WriterPreferences;
+        let totalCost = selectedAmount;
+        if (selectedSpace !== "Double") totalCost = totalCost * 2;
+
+        totalPagePrice = pageCount * totalCost;
+        totalSlidePrice = slideCount * selectedAmount / 2;
+        totalChartPrice = chartCount * selectedAmount / 2;
+
+        grandTotal = totalPagePrice + totalSlidePrice + totalChartPrice;
+        WriterPreferences = selectedWritingCategoryPercentage !== 0 ? selectedWritingCategoryPercentage * grandTotal : 0;
+        grandTotal = grandTotal + WriterPreferences;
+
+        /* Additional Services */
+        let ser1, ser2, ser3, ser4;
+        let onlyPSC = totalPagePrice + totalSlidePrice + totalChartPrice;
+        ser1 = addService1 ? 0.20 * onlyPSC : 0;
+
+        ser2 = addService2 ? 5 : 0;
+
+        ser3 = addService3 ? 0.10 * onlyPSC : 0;
+
+        ser4 = addService4 ? 0.10 * onlyPSC : 0;
+
+        grandTotal = grandTotal + ser1 + ser2 + ser3 + ser4;
+
+
         return (
             <Container className="order-wrapper" container="order-container">
-                <Grid container={true} spacing={3}>
+                <Grid container={true} spacing={3} className="cnt-wrp">
                     <Grid item xs={8}>
                         <Card padding="30px">
                             <h4 className="mb-1 hed">PLACE AN ORDER</h4>
@@ -109,7 +151,9 @@ export default class createOrder extends Component {
                                                 this.setState({
                                                     selectedLevels: level.id,
                                                     selectedPrice: level.prices,
-                                                    selectedName: level.level
+                                                    selectedName: level.level,
+                                                    selectedHours: level.prices[0].hours,
+                                                    selectedAmount: level.prices[0].amount
                                                 });
                                             }}
                                             style={{ height: '100%' }}
@@ -130,7 +174,8 @@ export default class createOrder extends Component {
                                             bgColor="#f4f8f9"
                                             onClick={() => {
                                                 this.setState({
-                                                    selectedHours: deadline.hours
+                                                    selectedHours: deadline.hours,
+                                                    selectedAmount: deadline.amount
                                                 });
                                             }}
                                             style={{ height: '100%', textAlign: 'center' }}
@@ -174,7 +219,7 @@ export default class createOrder extends Component {
                                                 arrow
                                                 key={i}
                                             >
-                                                <Grid item xs={6} sm={6} md={4} key={i} className={this.state.selectedSpace === space.value ? "active selct-card" : "selct-card"}>
+                                                <Grid item xs={6} sm={6} md={4} key={i} className={selectedSpace === space.value ? "active selct-card" : "selct-card"}>
                                                     <Card
                                                         bgColor="#f4f8f9"
                                                         onClick={() => {
@@ -220,7 +265,8 @@ export default class createOrder extends Component {
                                             bgColor="#f4f8f9"
                                             onClick={() => {
                                                 this.setState({
-                                                    selectedWritingCategory: category.id
+                                                    selectedWritingCategory: category.id,
+                                                    selectedWritingCategoryPercentage: category.percentage
                                                 });
                                             }}
                                             style={{ height: '100%' }}
@@ -384,9 +430,9 @@ export default class createOrder extends Component {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                        onChange={this.handleChange('pageCount')}
+                                        onChange={this.handleChange('chartCount')}
                                         inputProps={{
-                                            name: 'pageCount',
+                                            name: 'chartCount',
                                             min: "0"
                                         }}
                                         className="chartsInput"
@@ -411,25 +457,33 @@ export default class createOrder extends Component {
                                     />
                                 </Grid>
                             </Grid>
-
                             <Grid container={true} spacing={3} className="mt-3">
                                 <Grid item sm={12}>
                                     <h4 className="mt-5 mb-3 hed-2 mt-3">Additional services</h4>
                                     <List>
                                         {this.state.additionalServices.map((value, i) => {
                                             const labelId = `checkbox-list-label-${value}`;
+                                            let isSelected = this.state["addService" + value.id];
 
                                             return (
-                                                <ListItem key={i} role={undefined} dense button>
+                                                <ListItem
+                                                    key={i}
+                                                    role={undefined}
+                                                    dense
+                                                    button
+                                                    onClick={() => {
+                                                        this.setState({ ["addService" + value.id]: !isSelected })
+                                                    }}>
                                                     <ListItemIcon>
                                                         <Checkbox
                                                             edge="start"
                                                             tabIndex={-1}
                                                             disableRipple
                                                             inputProps={{ 'aria-labelledby': labelId }}
+                                                            checked={isSelected}
                                                         />
                                                     </ListItemIcon>
-                                                    <ListItemText id={labelId} primary={value.label} secondary={value.description} />
+                                                    <ListItemText id={labelId} primary={value.label + ' ' + value.extra} secondary={value.description} />
                                                 </ListItem>
                                             );
                                         })}
@@ -439,9 +493,28 @@ export default class createOrder extends Component {
                         </Card>
 
                     </Grid>
-                    <Grid item xs={4}>
-                        <Card padding="30px">
-                            Total :
+                    <Grid item xs={3} className="sidebar">
+                        <Card padding="30px" className="sidebar__inner">
+                            {paperTitle && <h5 className="mb-4">{paperTitle}</h5>}
+                            {selectedName && <h6>{selectedName}</h6>}
+                            <hr />
+                            {pageCount > 0 || slideCount > 0 || chartCount > 0 ?
+                                (
+                                    <React.Fragment>
+                                        {pageCount > 0 && <div>{pageCount} page x Rs.{totalCost} <span className="float-right">Rs.{totalPagePrice.toFixed(2)}</span></div>}
+                                        {chartCount > 0 && <div>{chartCount} chart x Rs.{selectedAmount / 2} <span className="float-right">Rs.{totalChartPrice.toFixed(2)}</span></div>}
+                                        {slideCount > 0 && <div>{slideCount} slide x Rs.{selectedAmount / 2} <span className="float-right">Rs.{totalSlidePrice.toFixed(2)}</span></div>}
+                                        {WriterPreferences != 0 && <div>Writer preferences <span className="float-right">Rs.{WriterPreferences.toFixed(2)}</span></div>}
+                                        {addService1 && <div>Smart Paper <span className="float-right">Rs.{ser1.toFixed(2)}</span></div>}
+                                        {addService2 && <div>Writer Samples <span className="float-right">Rs. {ser2.toFixed(2)}</span></div>}
+                                        {addService3 && <div>Copy of Sources <span className="float-right">Rs.{ser3.toFixed(2)}</span></div>}
+                                        {addService4 && <div>Progressive Delivery <span className="float-right">Rs.{ser4.toFixed(2)}</span></div>}
+                                        <hr />
+                                        Total Price {grandTotal ? <span className="float-right">Rs.{grandTotal.toFixed(2)}</span> : 0}
+                                    </React.Fragment>
+                                )
+                                : <Alert type="danger" show={true} text="You need to order at least 1 page or 1 slide or 1 chart" />
+                            }
                             <Button
                                 className="mt-3"
                                 style={{ display: 'block', textAlign: 'center' }}
