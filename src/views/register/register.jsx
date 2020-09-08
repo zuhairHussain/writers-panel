@@ -19,7 +19,7 @@ class Register extends Component {
     componentDidMount() {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user && user.token) {
-            history.push('/dashboard');
+            history.push('/');
         }
     }
     register() {
@@ -88,7 +88,7 @@ class Register extends Component {
                     </div>
                     <div className="text-center mt-4">
                         <button type="button" className="btn btn-primary" onClick={() => this.register()}>Submit</button>
-                        <p className="mt-4">Already have an account? <NavLink exact to='/dashboard/login'>Login</NavLink></p>
+                        <p className="mt-4">Already have an account? <NavLink exact to='/login'>Login</NavLink></p>
                     </div>
                 </form>
             </Container>

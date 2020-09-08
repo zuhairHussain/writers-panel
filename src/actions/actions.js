@@ -13,7 +13,7 @@ export function loginRequest(email, password) {
                     if (user.success) {
                         dispatch(loader(false));
                         dispatch(success(user));
-                        history.push('/dashboard');
+                        history.push('/');
                     } else {
                         dispatch(loader(false));
                         dispatch(failure(user.message.toString()));
@@ -42,7 +42,7 @@ export function registerRequest(name, email, password) {
                     if (user.success) {
                         dispatch(loader(false));
                         dispatch(success(user));
-                        history.push('/dashboard');
+                        history.push('/');
                     } else {
                         dispatch(loader(false));
                         dispatch(failure(user.message.toString()));
@@ -62,7 +62,7 @@ export function registerRequest(name, email, password) {
 
 export function logoutRequest() {
     userService.logout();
-    history.push('/dashboard/login');
+    history.push('/login');
     return { type: authConstants.LOGOUT };
 }
 

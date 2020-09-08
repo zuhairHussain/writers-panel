@@ -5,21 +5,21 @@ import Register from '../views/register/register';
 
 let routes = [
     {
-        path: "/dashboard",
+        path: "/",
         component: orderListing,
         exact: true,
         private: true
     },
     {
-        path: "/dashboard/login",
+        path: "/login",
         component: Login
     },
     {
-        path: "/dashboard/sign-up",
+        path: "/sign-up",
         component: Register
     },
     {
-        path: "/dashboard/create-order",
+        path: "/create-order",
         component: createOrder,
         exact: true,
         private: true

@@ -142,7 +142,7 @@ class orderListing extends Component {
                 <div className="empty-state">
                     <img className="placeholder-img" src={emptyState} />
                     <p>No orders found yet!</p>
-                    <RouterNavLink exact to='/dashboard/create-order' className="btn btn-primary">Order Now</RouterNavLink>
+                    <RouterNavLink exact to='/create-order' className="btn btn-primary">Order Now</RouterNavLink>
                 </div>
             )
         }

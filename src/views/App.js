@@ -28,7 +28,7 @@ class App extends Component {
               }
               ) : ""
             }
-            <Redirect from="*" to="/dashboard" />
+            <Redirect from="*" to="/" />
           </Switch>
         </Router>
         <Loader show={this.props.loader} />
