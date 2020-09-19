@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import emptyState from '../../assets/images/empty-state.png';
 import { NavLink as RouterNavLink } from 'react-router-dom';
 import Alert from '../../components/alerts/alerts';
+import Divider from '@material-ui/core/Divider';
 
 class orderListing extends Component {
     constructor(props) {
@@ -191,9 +192,24 @@ class orderListing extends Component {
                     </TabPane>
                 </TabContent>
                 <Modal isOpen={viewOpen} toggle={() => this.modalToggle('viewOpen')}>
-                    <ModalHeader toggle={() => this.modalToggle('viewOpen')}>View Order{}</ModalHeader>
+                    <ModalHeader toggle={() => this.modalToggle('viewOpen')}>Order # {this.state.selectedOrder.id ? this.state.selectedOrder.id : ''}</ModalHeader>
                     <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        <h5>Title</h5>
+                        <p>
+                            {this.state.selectedOrder.title ? this.state.selectedOrder.title : ''}
+                        </p>
+                        <Divider />
+                        <h5>Pages</h5>
+                        <p>
+                            {this.state.selectedOrder.pages ? this.state.selectedOrder.pages : ''}
+                        </p>
+                        <Divider />
+                        <h5>Academic level</h5>
+                        <p>
+                            {this.state.selectedOrder.academic_level ? this.state.selectedOrder.academic_level : ''}
+                        </p>
+                        
+
                     </ModalBody>
                 </Modal>
             </Container>
