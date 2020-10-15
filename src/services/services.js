@@ -9,7 +9,8 @@ export const userService = {
     getAll,
     getById,
     update,
-    delete: _delete
+    delete: _delete,
+    placeOrder
 };
 
 function login(email, password) {
@@ -45,6 +46,20 @@ function register(name, email, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
+}
+
+function placeOrder(data) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    };
+
+    return fetch(`${apiUrl}order/create`, requestOptions)
+        .then(handleResponse)
+        .then(data => {
+            return data;
+        });
 }
 
 function getAll() {

@@ -24,6 +24,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Alert from '../../components/alerts/alerts';
 
+import { connect } from 'react-redux';
+import { orderRequest } from '../../actions/actions';
+
 const Card = (props) => {
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -43,7 +46,7 @@ const Card = (props) => {
     )
 };
 
-export default class createOrder extends Component {
+class createOrder extends Component {
 
     constructor(props) {
         super(props);
@@ -52,7 +55,10 @@ export default class createOrder extends Component {
             addService1: false,
             addService2: false,
             addService3: false,
-            addService4: false
+            addService4: false,
+            selectedPaperType: '',
+            grandTotal: 200,
+            token: localStorage.getItem("user")
         }
     }
     componentDidMount() {
@@ -80,7 +86,9 @@ export default class createOrder extends Component {
     }
 
     submit = () => {
-        const { paperTitle, selectedPaperType, selectedSubject } = this.state;
+        const { paperTitle, selectedPaperType, selectedSubject, selectedLevels, note, grandTotal, selectedHours, selectedPaperFormat,
+            selectedSpace, selectedWritingCategory, pageCount, sourceCount, chartCount, slideCount, selectedAdditionalServices, token,
+            addService1, addService2, addService3, addService4 } = this.state;
         this.setState({ paperTitleErr: '', selectedPaperTypeErr: '', selectedSubjectErr: '' });
 
         if (!selectedPaperType) {
@@ -90,7 +98,30 @@ export default class createOrder extends Component {
         } else if (!selectedSubject) {
             this.setState({ selectedSubjectErr: "Discipline is required." });
         } else {
-            alert("Form is valid!")
+            let additionalServices = [addService1, addService2, addService3, addService4];
+            let payload = {
+                academic_level: selectedLevels,
+                order_title: paperTitle,
+                order_note: note,
+                order_price: grandTotal,
+                order_deadline: selectedHours,
+                order_action: 1,
+                order_status: 1,
+                paper_format: selectedPaperFormat,
+                spacing: selectedSpace,
+                writer_category: selectedWritingCategory,
+                writeup_discipline: 'History',//selectedSubject
+                paper_type: selectedPaperType,
+                pages_count: pageCount,
+                sources_count: sourceCount,
+                charts_count: chartCount,
+                slides_count: slideCount,
+                additional_material: null,
+                additional_services: 'Smart paper',
+                token: token ? JSON.parse(token).token : ''
+            }
+            console.log(payload, this.state);
+            this.props.orderRequest(payload);
         }
 
         setTimeout(() => {
@@ -130,7 +161,6 @@ export default class createOrder extends Component {
         ser4 = addService4 ? 0.10 * onlyPSC : 0;
 
         grandTotal = grandTotal + ser1 + ser2 + ser3 + ser4;
-
 
         return (
             <Container className="order-wrapper" container="order-container">
@@ -190,12 +220,12 @@ export default class createOrder extends Component {
                             <h4 className="mt-5 mb-3 hed-2 mt-3">Paper format</h4>
                             <Grid container={true} spacing={1}>
                                 {this.state.paperFormat.map((format, i) => (
-                                    <Grid item xs={12} sm={6} md={2} key={i} className={this.state.selectedPaperFormat === format.name ? "active selct-card" : "selct-card"}>
+                                    <Grid item xs={12} sm={6} md={2} key={i} className={this.state.selectedPaperFormat == format.id ? "active selct-card" : "selct-card"}>
                                         <Card
                                             bgColor="#f4f8f9"
                                             onClick={() => {
                                                 this.setState({
-                                                    selectedPaperFormat: format.name
+                                                    selectedPaperFormat: format.id
                                                 });
                                             }}
                                             style={{ height: '100%' }}
@@ -302,7 +332,7 @@ export default class createOrder extends Component {
                                                 <MenuItem
                                                     key={i}
 
-                                                    value={paper.type}
+                                                    value={paper.id}
                                                 >
                                                     {paper.type}
                                                 </MenuItem>
@@ -533,3 +563,14 @@ export default class createOrder extends Component {
         );
     }
 }
+
+function mapState(state) {
+    const { } = state;
+    return {};
+}
+
+const actionCreators = {
+    orderRequest: orderRequest
+};
+
+export default connect(mapState, actionCreators)(createOrder);

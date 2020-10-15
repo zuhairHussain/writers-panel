@@ -337,67 +337,67 @@ let data = {
     "id": "19",
     "type": "Homework"
   }, {
-    "id": "1",
+    "id": "20",
     "type": "Journal article"
   }, {
-    "id": "20",
+    "id": "21",
     "type": "Lap report"
   }, {
-    "id": "21",
+    "id": "22",
     "type": "Literature analysis/review"
   }, {
-    "id": "22",
+    "id": "23",
     "type": "Case study"
   }, {
-    "id": "23",
+    "id": "24",
     "type": "Outline"
   }, {
-    "id": "24",
+    "id": "25",
     "type": "Personal reflection"
   }, {
-    "id": "25",
+    "id": "26",
     "type": "Poem"
   }, {
-    "id": "26",
+    "id": "27",
     "type": "Presentation/PPT"
   }, {
-    "id": "27",
+    "id": "28",
     "type": "Project"
   }, {
-    "id": "28",
+    "id": "29",
     "type": "Question-Answer"
   }, {
-    "id": "29",
+    "id": "30",
     "type": "Reflection paper/Reflection essay"
   }, {
-    "id": "30",
+    "id": "31",
     "type": "Report (any type)"
   }, {
-    "id": "31",
+    "id": "32",
     "type": "Brief report"
   }, {
-    "id": "32",
+    "id": "33",
     "type": "Research proposal"
   }, {
-    "id": "33",
+    "id": "34",
     "type": "Response esssay"
   }, {
-    "id": "34",
+    "id": "35",
     "type": "Mentioned in paper instructions"
   }, {
-    "id": "35",
+    "id": "36",
     "type": "Speech"
   }, {
-    "id": "36",
+    "id": "37",
     "type": "Summary"
   }, {
-    "id": "37",
+    "id": "38",
     "type": "Term paper"
   }, {
-    "id": "38",
+    "id": "39",
     "type": "Thesis/Thesis chapter"
   }, {
-    "id": "39",
+    "id": "40",
     "type": "Other"
   }],
   "paperFormat": [{
@@ -416,7 +416,7 @@ let data = {
     "id": "5",
     "name": "Other"
   }],
-  "selectedPaperFormat": "MLA",
+  "selectedPaperFormat": 1,
   "spacing": [{
     "id": "1",
     "value": "Single",

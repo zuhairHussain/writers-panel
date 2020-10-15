@@ -15,4 +15,9 @@ export const userDataConstants = {
     FETCH_DATA_FAILURE: 'FETCH_DATA_FAILURE'
 }
 
+export const createOrderConstants = {
+    CREATE_ORDER_SUCCESS: 'CREATE_ORDER_SUCCESS',
+    CREATE_ORDER_FAILURE: 'CREATE_ORDER_FAILURE'
+}
+
 export const LOADER_REQUEST = 'LOADER_REQUEST'

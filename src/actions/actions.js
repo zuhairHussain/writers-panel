@@ -1,4 +1,4 @@
-import { authConstants, LOADER_REQUEST, userDataConstants } from '../constants/commonConstants';
+import { authConstants, LOADER_REQUEST, userDataConstants, createOrderConstants } from '../constants/commonConstants';
 import { userService } from '../services/services';
 import { history } from '../history';
 
@@ -64,6 +64,32 @@ export function logoutRequest() {
     userService.logout();
     history.push('/login');
     return { type: authConstants.LOGOUT };
+}
+
+export function orderRequest(data) {
+    return dispatch => {
+        dispatch(loader(true));
+
+        userService.placeOrder(data)
+            .then(
+                res => {
+                    if (res) {
+                        dispatch(loader(false));
+                        dispatch(success(res));
+                    } else {
+                        dispatch(loader(false));
+                        dispatch(failure(res.message.toString()));
+                    }
+                },
+                error => {
+                    dispatch(loader(false));
+                    dispatch(failure(error.toString()));
+                }
+            );
+    };
+
+    function success(order) { return { type: createOrderConstants.CREATE_ORDER_SUCCESS, order } }
+    function failure(error) { return { type: createOrderConstants.CREATE_ORDER_FAILURE, error } }
 }
 
 export function userData() {

@@ -40,9 +40,9 @@ class Header extends Component {
                                 </span>
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem disabled>fahadu11@yopmail.com</DropdownItem>
+                                {/*<DropdownItem disabled>fahadu11@yopmail.com</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem>My Account</DropdownItem>
+                                <DropdownItem>My Account</DropdownItem>*/}
                                 <DropdownItem onClick={() => this.props.logout()}>Sign Out</DropdownItem>
                             </DropdownMenu>
                         </ButtonDropdown>
